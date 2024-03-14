@@ -6,15 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.test.moviesapp.databinding.FragmentMainPageBinding
 import com.test.moviesapp.ui.mainPage.adapter.MoviesRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainPageFragment : Fragment() {
 
     private lateinit var binding: FragmentMainPageBinding
     private val viewModel: MainPageViewModel by viewModels()
+    private lateinit var adapter: MoviesRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,25 +31,29 @@ class MainPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setOnClickListener()
+        setupView()
         observeViewModel()
+        getPopularMovies()
     }
 
-    private fun setOnClickListener() = with(binding) {
-//        getMoviesButton.setOnClickListener {
-//            viewModel.getPopularMovies()
-//        }
+    private fun setupView() = with(binding) {
+        adapter = MoviesRecyclerViewAdapter { movieData ->
+            viewModel.saveMovie(movieData)
+        }
+        recyclerView.adapter = adapter
     }
 
     private fun observeViewModel() = with(viewModel) {
-        movies.observe(viewLifecycleOwner) {
-            val adapter = MoviesRecyclerViewAdapter(
-                movies = it,
-                onMovieClicked = {
 
+    }
+
+    private fun getPopularMovies() {
+        lifecycleScope.launch {
+            viewModel.getPagedMovies().observe(viewLifecycleOwner) {
+                lifecycleScope.launch {
+                    adapter.submitData(it)
                 }
-            )
-            binding.recyclerView.adapter = adapter
+            }
         }
     }
 }

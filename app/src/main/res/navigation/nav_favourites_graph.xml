@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/favouritesFragment"
-        android:name="com.test.moviesapp.ui.favourites.FavouritesFragment" />
+        android:name="com.test.moviesapp.ui.favourites.FavouriteMoviesFragment" />
 
 </navigation>

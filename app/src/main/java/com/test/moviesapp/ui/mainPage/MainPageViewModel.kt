@@ -1,10 +1,14 @@
 package com.test.moviesapp.ui.mainPage
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.test.domain.useCases.GetPopularMoviesUseCase
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.map
+import com.test.domain.useCases.AddMovieUseCase
+import com.test.domain.useCases.GetPagedPopularMoviesUseCase
 import com.test.domain.useCases.model.PopularMovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,21 +16,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainPageViewModel @Inject constructor(
-    private val getPopularMoviesUseCase: GetPopularMoviesUseCase
+    private val getPagedPopularMoviesUseCase: GetPagedPopularMoviesUseCase,
+    private val addMovieUseCase: AddMovieUseCase
 ) : ViewModel() {
 
-    private val _movies = MutableLiveData<List<PopularMovieModel>>()
-    val movies: LiveData<List<PopularMovieModel>>
-        get() = _movies
-
-    init {
-        getPopularMovies()
+    fun getPagedMovies(): LiveData<PagingData<PopularMovieModel>> {
+        return getPagedPopularMoviesUseCase.getPagedPopularMovies("5b81ffe30455492a85958994a1275dd1").map {
+            it.map {
+                PopularMovieModel(
+                    adult = it.adult,
+                    title = it.title ?: "Unknown title",
+                    voteAverage = it.voteAverage ?: 0.0,
+                    posterImage = it.posterPath
+                )
+            }
+        }.cachedIn(viewModelScope)
     }
 
-    private fun getPopularMovies() {
+    fun saveMovie(movie: PopularMovieModel) {
         viewModelScope.launch {
-            val result = getPopularMoviesUseCase.getPopularMovies("5b81ffe30455492a85958994a1275dd1")
-            _movies.value = result
+            addMovieUseCase.addMovie(movie)
         }
     }
 }
