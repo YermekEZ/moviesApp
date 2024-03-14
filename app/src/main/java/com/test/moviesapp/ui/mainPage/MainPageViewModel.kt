@@ -24,8 +24,8 @@ class MainPageViewModel @Inject constructor(
         return getPagedPopularMoviesUseCase.getPagedPopularMovies("5b81ffe30455492a85958994a1275dd1").map {
             it.map {
                 PopularMovieModel(
-                    adult = it.adult,
                     title = it.title ?: "Unknown title",
+                    description = it.overview ?: "No description",
                     voteAverage = it.voteAverage ?: 0.0,
                     posterImage = it.posterPath
                 )

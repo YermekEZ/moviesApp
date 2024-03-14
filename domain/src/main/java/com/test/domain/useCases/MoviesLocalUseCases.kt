@@ -11,6 +11,7 @@ class AddMovieUseCase @Inject constructor(
     suspend fun addMovie(movie: PopularMovieModel) {
         val movieEntity = FavouriteMovieEntity(
             title = movie.title,
+            description = movie.description,
             averageRating = movie.voteAverage.toString(),
             imageUrl = movie.posterImage
         )
@@ -29,8 +30,8 @@ class GetAllFavouriteMoviesUseCase @Inject constructor(
     private fun transformFavouriteMovieEntityToMovieModel(movies: List<FavouriteMovieEntity>): List<PopularMovieModel> {
         val favouriteMoviesList = movies.map {
             PopularMovieModel(
-                adult = false,
                 title = it.title,
+                description = it.description,
                 voteAverage = it.averageRating.toDouble(),
                 posterImage = it.imageUrl
             )

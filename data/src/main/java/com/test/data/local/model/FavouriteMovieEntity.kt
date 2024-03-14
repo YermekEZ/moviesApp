@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class FavouriteMovieEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,
+    val description: String,
     val averageRating: String,
     val imageUrl: String
 )

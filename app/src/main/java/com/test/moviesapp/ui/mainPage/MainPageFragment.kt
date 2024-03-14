@@ -1,5 +1,6 @@
 package com.test.moviesapp.ui.mainPage
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.test.moviesapp.databinding.FragmentMainPageBinding
 import com.test.moviesapp.ui.mainPage.adapter.MoviesRecyclerViewAdapter
+import com.test.moviesapp.ui.movieDetails.MovieDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,7 +40,13 @@ class MainPageFragment : Fragment() {
 
     private fun setupView() = with(binding) {
         adapter = MoviesRecyclerViewAdapter { movieData ->
-            viewModel.saveMovie(movieData)
+            //viewModel.saveMovie(movieData)
+            val intent = Intent(requireContext(), MovieDetailActivity::class.java)
+            intent.putExtra("title", movieData.title)
+            intent.putExtra("description", movieData.description)
+            intent.putExtra("rating", movieData.voteAverage)
+            intent.putExtra("posterUrl", "https://image.tmdb.org/t/p/original${movieData.posterImage}")
+            startActivity(intent)
         }
         recyclerView.adapter = adapter
     }
