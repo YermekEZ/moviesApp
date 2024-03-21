@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.test.domain.useCases.GetAllFavouriteMoviesUseCase
-import com.test.domain.useCases.model.PopularMovieModel
+import com.test.domain.useCases.model.MovieModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,8 +15,8 @@ class FavouriteMoviesViewModel @Inject constructor(
     private val getAllFavouriteMoviesUseCase: GetAllFavouriteMoviesUseCase
 ): ViewModel() {
 
-    private val _favouriteMovies = MutableLiveData<List<PopularMovieModel>>()
-    val favouriteMovies: LiveData<List<PopularMovieModel>>
+    private val _favouriteMovies = MutableLiveData<List<MovieModel>>()
+    val favouriteMovies: LiveData<List<MovieModel>>
         get() = _favouriteMovies
 
     init {

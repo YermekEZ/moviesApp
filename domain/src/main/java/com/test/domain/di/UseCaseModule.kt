@@ -3,9 +3,11 @@ package com.test.domain.di
 import com.test.data.local.repository.MoviesLocalRepository
 import com.test.data.network.repository.MoviesRepository
 import com.test.domain.useCases.AddMovieUseCase
+import com.test.domain.useCases.AddRecentlySearchedMovieUseCase
 import com.test.domain.useCases.GetAllFavouriteMoviesUseCase
+import com.test.domain.useCases.GetAllRecentlySearchedMoviesUseCase
 import com.test.domain.useCases.GetPagedPopularMoviesUseCase
-import com.test.domain.useCases.GetPopularMoviesUseCase
+import com.test.domain.useCases.SearchMoviesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +18,7 @@ import dagger.hilt.components.SingletonComponent
 object UseCaseModule {
 
     @Provides
-    fun provideGetPopularMoviesUseCase(repository: MoviesRepository): GetPopularMoviesUseCase = GetPopularMoviesUseCase(repository)
+    fun provideSearchMoviesUseCase(repository: MoviesRepository): SearchMoviesUseCase = SearchMoviesUseCase(repository)
 
     @Provides
     fun provideGetPagedPopularMoviesUseCase(repository: MoviesRepository): GetPagedPopularMoviesUseCase = GetPagedPopularMoviesUseCase(repository)
@@ -31,4 +33,10 @@ object LocalUseCaseModule {
 
     @Provides
     fun provideGetAllFavouriteMovies(repository: MoviesLocalRepository): GetAllFavouriteMoviesUseCase = GetAllFavouriteMoviesUseCase(repository)
+
+    @Provides
+    fun provideAddRecentlySearchedMovieUseCase(repository: MoviesLocalRepository): AddRecentlySearchedMovieUseCase = AddRecentlySearchedMovieUseCase(repository)
+
+    @Provides
+    fun provideGetAllRecentlySearchedMoviesUseCase(repository: MoviesLocalRepository): GetAllRecentlySearchedMoviesUseCase = GetAllRecentlySearchedMoviesUseCase(repository)
 }

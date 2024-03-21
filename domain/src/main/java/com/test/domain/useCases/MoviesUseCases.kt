@@ -1,35 +1,38 @@
 package com.test.domain.useCases
 
+import com.test.data.network.model.PopularMoviesResponse
 import com.test.data.network.repository.MoviesRepository
+import com.test.domain.useCases.model.MovieModel
 import javax.inject.Inject
 
-class GetPopularMoviesUseCase @Inject constructor(
+class SearchMoviesUseCase @Inject constructor(
     private val repository: MoviesRepository
 ) {
-//    suspend fun getPopularMovies(apiKey: String): List<PopularMovieModel> {
-//        val result = repository.getPopularMovies(apiKey)
-//        if (result.isSuccessful) {
-//            return transformToPopularMovieModel(result.body())
-//        } else {
-//            return emptyList()
-//        }
-//    }
-//
-//    private fun transformToPopularMovieModel(data: PopularMoviesResponse?): List<PopularMovieModel> {
-//        val popularMoviesList = mutableListOf<PopularMovieModel>().apply {
-//            data?.results?.let {
-//                it.forEach { responseData ->
-//                    add(
-//                        PopularMovieModel(
-//                            adult = responseData.adult,
-//                            title = responseData.title ?: "The movie does not have a title",
-//                            voteAverage = responseData.voteAverage ?: 0.0,
-//                            posterImage = responseData.posterPath
-//                        )
-//                    )
-//                }
-//            }
-//        }
-//        return popularMoviesList
-//    }
+    suspend fun searchMovies(searchQuery: String): List<MovieModel> {
+        val result = repository.searchMovies(searchQuery)
+        if (result.isSuccessful) {
+            return transformToPopularMovieModel(result.body())
+        } else {
+            return emptyList()
+        }
+    }
+
+    private fun transformToPopularMovieModel(data: PopularMoviesResponse?): List<MovieModel> {
+        val popularMoviesList = mutableListOf<MovieModel>().apply {
+            data?.results?.let {
+                it.forEach { responseData ->
+                    add(
+                        MovieModel(
+                            id = responseData.id,
+                            title = responseData.title ?: "The movie does not have a title",
+                            description = responseData.overview ?: "No description",
+                            voteAverage = responseData.voteAverage ?: 0.0,
+                            posterImage = responseData.posterPath.orEmpty()
+                        )
+                    )
+                }
+            }
+        }
+        return popularMoviesList
+    }
 }

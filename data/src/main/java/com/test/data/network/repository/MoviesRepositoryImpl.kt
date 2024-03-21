@@ -29,4 +29,8 @@ class MoviesRepositoryImpl @Inject constructor(
             MovieListPagingSource(api)
         }.liveData
     }
+
+    override suspend fun searchMovies(searchQuery: String): Response<PopularMoviesResponse> {
+        return api.searchMovies(searchQuery = searchQuery)
+    }
 }

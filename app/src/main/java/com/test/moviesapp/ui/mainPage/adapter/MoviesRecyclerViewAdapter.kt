@@ -6,12 +6,12 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.test.domain.useCases.model.PopularMovieModel
+import com.test.domain.useCases.model.MovieModel
 import com.test.moviesapp.databinding.LayoutMoviePosterItemBinding
 
 class MoviesRecyclerViewAdapter(
-    val onMovieClicked: (PopularMovieModel) -> Unit
-): PagingDataAdapter<PopularMovieModel, MoviesRecyclerViewAdapter.ViewHolder>(MoviesListDiffCallback()) {  //: RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder>() {
+    val onMovieClicked: (MovieModel) -> Unit
+): PagingDataAdapter<MovieModel, MoviesRecyclerViewAdapter.ViewHolder>(MoviesListDiffCallback()) {  //: RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = LayoutMoviePosterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +19,7 @@ class MoviesRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item: PopularMovieModel? = getItem(position)
+        val item: MovieModel? = getItem(position)
         item?.let {
             holder.bind(it)
         }
@@ -29,26 +29,26 @@ class MoviesRecyclerViewAdapter(
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads)
         } else {
-            val newItem = payloads[0] as PopularMovieModel
+            val newItem = payloads[0] as MovieModel
             holder.bind(newItem)
         }
     }
 
-    class MoviesListDiffCallback : DiffUtil.ItemCallback<PopularMovieModel>() {
+    class MoviesListDiffCallback : DiffUtil.ItemCallback<MovieModel>() {
         override fun areItemsTheSame(
-            oldItem: PopularMovieModel,
-            newItem: PopularMovieModel
-        ) = oldItem.title == newItem.title
+            oldItem: MovieModel,
+            newItem: MovieModel
+        ) = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: PopularMovieModel,
-            newItem: PopularMovieModel
+            oldItem: MovieModel,
+            newItem: MovieModel
         ) = oldItem == newItem
 
     }
 
     inner class ViewHolder(private val binding: LayoutMoviePosterItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: PopularMovieModel) = with(binding) {
+        fun bind(movie: MovieModel) = with(binding) {
             moviePosterImageView.load("https://image.tmdb.org/t/p/original${movie.posterImage}")
             movieTitleTextView.text = movie.title
             movieRatingTextView.text = movie.voteAverage.toString()

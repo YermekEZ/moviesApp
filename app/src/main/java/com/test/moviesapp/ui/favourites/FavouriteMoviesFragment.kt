@@ -12,7 +12,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavouriteMoviesFragment : Fragment() {
 
-    private lateinit var binding: FragmentFavouritesBinding
+    private var _binding: FragmentFavouritesBinding? = null
+    private val binding
+        get() = _binding!!
     private val viewModel: FavouriteMoviesViewModel by viewModels()
 
     override fun onCreateView(
@@ -20,7 +22,7 @@ class FavouriteMoviesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFavouritesBinding.inflate(inflater, container, false)
+        _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -34,6 +36,11 @@ class FavouriteMoviesFragment : Fragment() {
         favouriteMovies.observe(viewLifecycleOwner) {
             val movies = it
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -12,29 +12,41 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp" />
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/titleContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/moviePosterImageView"
-        android:layout_margin="16dp"
-        tools:text="Avatar" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/ratingTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/moviePosterImageView"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        tools:text="8.0" />
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            tools:text="Avatar" />
+
+        <TextView
+            android:id="@+id/ratingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            tools:text="8.0" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/detailsTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleTextView"
+        android:layout_below="@id/titleContainer"
         android:layout_marginHorizontal="16dp" />
 
     <Button

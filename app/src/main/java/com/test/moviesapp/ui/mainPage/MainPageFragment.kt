@@ -17,7 +17,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainPageFragment : Fragment() {
 
-    private lateinit var binding: FragmentMainPageBinding
+    private var _binding: FragmentMainPageBinding? = null
+    private val binding
+        get() = _binding!!
     private val viewModel: MainPageViewModel by viewModels()
     private lateinit var adapter: MoviesRecyclerViewAdapter
 
@@ -26,7 +28,7 @@ class MainPageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainPageBinding.inflate(inflater, container, false)
+        _binding = FragmentMainPageBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -63,5 +65,10 @@ class MainPageFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

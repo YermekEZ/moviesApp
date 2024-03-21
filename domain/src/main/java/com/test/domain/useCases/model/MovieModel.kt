@@ -1,6 +1,7 @@
 package com.test.domain.useCases.model
 
-data class PopularMovieModel(
+data class MovieModel(
+    val id: Int,
     val title: String,
     val description: String,
     val voteAverage: Double,

@@ -11,4 +11,6 @@ interface MoviesRepository {
     suspend fun getPopularMovies(apiKey: String): Response<PopularMoviesResponse>
 
     fun getPagedPopularMovies(apiKey: String): LiveData<PagingData<Movie>>
+
+    suspend fun searchMovies(searchQuery: String): Response<PopularMoviesResponse>
 }

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
-import com.test.domain.useCases.model.PopularMovieModel
+import com.test.domain.useCases.model.MovieModel
 import com.test.moviesapp.databinding.ActivityMovieDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,14 +14,15 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieDetailBinding
     private val viewModel by viewModels<MovieDetailViewModel>()
 
-    private lateinit var movieData: PopularMovieModel
+    private lateinit var movieData: MovieModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMovieDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         intent.extras?.let {
-            movieData = PopularMovieModel(
+            movieData = MovieModel(
+                id = it.getInt("id"),
                 title = it.getString("title") ?: "No title",
                 description = it.getString("description").orEmpty(),
                 voteAverage = it.getDouble("rating") ?: 0.0,
