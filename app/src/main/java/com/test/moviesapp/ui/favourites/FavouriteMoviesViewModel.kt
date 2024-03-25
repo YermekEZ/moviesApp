@@ -1,5 +1,6 @@
 package com.test.moviesapp.ui.favourites
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,13 +20,13 @@ class FavouriteMoviesViewModel @Inject constructor(
     val favouriteMovies: LiveData<List<MovieModel>>
         get() = _favouriteMovies
 
-    init {
-        getMovies()
-    }
-
-    private fun getMovies() {
+    fun getMovies() {
         viewModelScope.launch {
-            _favouriteMovies.value = getAllFavouriteMoviesUseCase.getAllFavouriteMovies()
+            val test = getAllFavouriteMoviesUseCase.getAllFavouriteMovies()
+            test.forEach {
+                Log.d("MOVIES_LIST", it.toString())
+            }
+            _favouriteMovies.value = test//getAllFavouriteMoviesUseCase.getAllFavouriteMovies()
         }
     }
 }

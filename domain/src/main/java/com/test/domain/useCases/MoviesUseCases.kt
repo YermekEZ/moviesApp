@@ -1,8 +1,10 @@
 package com.test.domain.useCases
 
+import com.test.data.network.model.MovieVideoInfoResponse
 import com.test.data.network.model.PopularMoviesResponse
 import com.test.data.network.repository.MoviesRepository
 import com.test.domain.useCases.model.MovieModel
+import com.test.domain.useCases.model.MovieVideoInfoModel
 import javax.inject.Inject
 
 class SearchMoviesUseCase @Inject constructor(
@@ -34,5 +36,37 @@ class SearchMoviesUseCase @Inject constructor(
             }
         }
         return popularMoviesList
+    }
+}
+
+class GetMovieVideoInfoUseCase @Inject constructor(
+    private val repository: MoviesRepository
+) {
+
+    suspend fun getMovieVideoInfo(movieId: String): List<MovieVideoInfoModel> {
+        val result = repository.getMovieVideoInfo(movieId)
+        if (result.isSuccessful) {
+            return transformToMovieVideoInfoModel(result.body())
+        } else {
+            return emptyList()
+        }
+    }
+
+    private fun transformToMovieVideoInfoModel(data: MovieVideoInfoResponse?): List<MovieVideoInfoModel> {
+        val movieVideoInfoList = mutableListOf<MovieVideoInfoModel>().apply {
+            data?.results?.let {
+                it.forEach { videoInfo ->
+                    add(
+                        MovieVideoInfoModel(
+                            name = videoInfo.name.orEmpty(),
+                            key = videoInfo.key.orEmpty(),
+                            type = videoInfo.type.orEmpty(),
+                            official = videoInfo.official ?: false
+                        )
+                    )
+                }
+            }
+        }
+        return movieVideoInfoList
     }
 }

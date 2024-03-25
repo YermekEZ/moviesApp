@@ -77,6 +77,8 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     // paging
     implementation("androidx.paging:paging-runtime-ktx:3.1.0-beta01")
+    // youtube player
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

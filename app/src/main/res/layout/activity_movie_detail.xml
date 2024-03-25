@@ -5,66 +5,86 @@
     android:layout_height="match_parent"
     tools:context=".ui.movieDetails.MovieDetailActivity">
 
-    <ImageView
-        android:id="@+id/moviePosterImageView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/titleContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/moviePosterImageView"
-        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            tools:text="Avatar" />
+            <ImageView
+                android:id="@+id/moviePosterImageView"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp" />
 
-        <TextView
-            android:id="@+id/ratingTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            tools:text="8.0" />
+            <LinearLayout
+                android:id="@+id/titleContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/moviePosterImageView"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    tools:text="Avatar" />
 
-    <TextView
-        android:id="@+id/detailsTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/titleContainer"
-        android:layout_marginHorizontal="16dp" />
+                <TextView
+                    android:id="@+id/ratingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    tools:text="8.0" />
 
-    <Button
-        android:id="@+id/addMovieButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detailsTextView"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Add movie to Favorites" />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/trailerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addMovieButton"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Trailer" />
+            <TextView
+                android:id="@+id/detailsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titleContainer"
+                android:layout_marginHorizontal="16dp" />
+
+            <Button
+                android:id="@+id/addMovieButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailsTextView"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Add movie to Favorites" />
+
+            <TextView
+                android:id="@+id/trailerTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addMovieButton"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="Trailer" />
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/youtubePlayer"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp"
+                android:layout_below="@id/trailerTextView"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

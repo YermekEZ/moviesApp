@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.test.domain.useCases.model.MovieModel
 import com.test.moviesapp.databinding.ActivityMovieDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +33,8 @@ class MovieDetailActivity : AppCompatActivity() {
         }
         setupView()
         setOnClickListeners()
+        observeViewModel()
+        viewModel.getVideoInfo(movieId = movieData.id.toString())
     }
 
     private fun setupView() = with(binding) {
@@ -38,11 +42,28 @@ class MovieDetailActivity : AppCompatActivity() {
         titleTextView.text = movieData.title
         detailsTextView.text = movieData.description
         ratingTextView.text = movieData.voteAverage.toString()
+        lifecycle.addObserver(youtubePlayer)
     }
 
     private fun setOnClickListeners() = with(binding) {
         addMovieButton.setOnClickListener {
             viewModel.addMovieToFavorites(movieData)
         }
+    }
+
+    private fun observeViewModel() = with(viewModel) {
+        videoKey.observe(this@MovieDetailActivity) {
+            binding.youtubePlayer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    super.onReady(youTubePlayer)
+                    youTubePlayer.loadVideo(it, 0F)
+                }
+            })
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.youtubePlayer.release()
     }
 }

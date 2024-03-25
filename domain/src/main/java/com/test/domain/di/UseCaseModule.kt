@@ -6,6 +6,7 @@ import com.test.domain.useCases.AddMovieUseCase
 import com.test.domain.useCases.AddRecentlySearchedMovieUseCase
 import com.test.domain.useCases.GetAllFavouriteMoviesUseCase
 import com.test.domain.useCases.GetAllRecentlySearchedMoviesUseCase
+import com.test.domain.useCases.GetMovieVideoInfoUseCase
 import com.test.domain.useCases.GetPagedPopularMoviesUseCase
 import com.test.domain.useCases.SearchMoviesUseCase
 import dagger.Module
@@ -22,6 +23,9 @@ object UseCaseModule {
 
     @Provides
     fun provideGetPagedPopularMoviesUseCase(repository: MoviesRepository): GetPagedPopularMoviesUseCase = GetPagedPopularMoviesUseCase(repository)
+
+    @Provides
+    fun provideGetMovieVideoInfoUseCase(repository: MoviesRepository): GetMovieVideoInfoUseCase = GetMovieVideoInfoUseCase(repository)
 }
 
 @Module

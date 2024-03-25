@@ -58,6 +58,7 @@ class SearchFragment : Fragment() {
             (popUpWindowAdapter.getItem(position) as? MovieModel)?.let { movie ->
                 viewModel.addMovieToRecentlySearched(movie)
                 val intent = Intent(requireContext(), MovieDetailActivity::class.java)
+                intent.putExtra("id", movie.id)
                 intent.putExtra("title", movie.title)
                 intent.putExtra("description", movie.description)
                 intent.putExtra("rating", movie.voteAverage)
@@ -98,6 +99,7 @@ class SearchFragment : Fragment() {
                 Log.d("TESTCASE", it.firstOrNull().toString())
                 val adapter = RecentlySearchedMoviesRecyclerViewAdapter(it) { movie ->
                     val intent = Intent(requireContext(), MovieDetailActivity::class.java)
+                    intent.putExtra("id", movie.id)
                     intent.putExtra("title", movie.title)
                     intent.putExtra("description", movie.description)
                     intent.putExtra("rating", movie.voteAverage)

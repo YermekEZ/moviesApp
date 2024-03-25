@@ -44,6 +44,7 @@ class MainPageFragment : Fragment() {
         adapter = MoviesRecyclerViewAdapter { movieData ->
             //viewModel.saveMovie(movieData)
             val intent = Intent(requireContext(), MovieDetailActivity::class.java)
+            intent.putExtra("id", movieData.id)
             intent.putExtra("title", movieData.title)
             intent.putExtra("description", movieData.description)
             intent.putExtra("rating", movieData.voteAverage)

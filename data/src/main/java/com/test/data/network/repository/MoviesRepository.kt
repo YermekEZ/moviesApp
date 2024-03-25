@@ -3,6 +3,7 @@ package com.test.data.network.repository
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.test.data.network.model.Movie
+import com.test.data.network.model.MovieVideoInfoResponse
 import com.test.data.network.model.PopularMoviesResponse
 import retrofit2.Response
 
@@ -13,4 +14,6 @@ interface MoviesRepository {
     fun getPagedPopularMovies(apiKey: String): LiveData<PagingData<Movie>>
 
     suspend fun searchMovies(searchQuery: String): Response<PopularMoviesResponse>
+
+    suspend fun getMovieVideoInfo(movieId: String): Response<MovieVideoInfoResponse>
 }
