@@ -32,7 +32,9 @@
 
     </LinearLayout>
 
+
     <TextView
+        android:id="@+id/recentlySearchedTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -47,5 +49,28 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         android:layout_marginTop="8dp" />
+
+    <ImageView
+        android:id="@+id/emptyRecentStateImageView"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/img_empty_state"/>
+
+
+    <TextView
+        android:id="@+id/emptyRecentStateTextView"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        android:text="You have no recent search history."
+        android:textSize="16sp"/>
+
 
 </LinearLayout>
