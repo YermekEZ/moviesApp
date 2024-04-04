@@ -29,7 +29,7 @@ class SearchMoviesUseCase @Inject constructor(
                             title = responseData.title ?: "The movie does not have a title",
                             description = responseData.overview ?: "No description",
                             voteAverage = responseData.voteAverage ?: 0.0,
-                            posterImage = responseData.posterPath.orEmpty()
+                            posterImage = responseData.posterPath.orEmpty().takeIf { it.isNotBlank() } ?: "https://i.pinimg.com/564x/50/6f/3c/506f3c5fcb942c54fbe2f5f84b96d2c8.jpg"
                         )
                     )
                 }
