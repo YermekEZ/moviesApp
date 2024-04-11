@@ -31,7 +31,10 @@ class FavouriteMoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
+    override fun onStart() {
+        super.onStart()
         observeViewModel()
         viewModel.getMovies()
     }

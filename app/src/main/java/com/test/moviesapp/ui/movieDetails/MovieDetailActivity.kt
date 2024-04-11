@@ -1,6 +1,7 @@
 package com.test.moviesapp.ui.movieDetails
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
@@ -35,6 +36,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setOnClickListeners()
         observeViewModel()
         viewModel.getVideoInfo(movieId = movieData.id.toString())
+        viewModel.isMovieFavorite(movieData)
     }
 
     private fun setupView() = with(binding) {
@@ -48,6 +50,11 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun setOnClickListeners() = with(binding) {
         addMovieButton.setOnClickListener {
             viewModel.addMovieToFavorites(movieData)
+            showRemoveMovieButton()
+        }
+        removeMovieButton.setOnClickListener {
+            viewModel.removeMovieFromFavorites(movieData)
+            showAddMovieButton()
         }
     }
 
@@ -62,6 +69,24 @@ class MovieDetailActivity : AppCompatActivity() {
                 }
             })
         }
+        isFavorite.observe(this@MovieDetailActivity) {
+            if (it == true) {
+                showRemoveMovieButton()
+            }
+            else {
+                showAddMovieButton()
+            }
+        }
+    }
+
+    private fun showAddMovieButton() = with(binding) {
+        removeMovieButton.visibility = View.INVISIBLE
+        addMovieButton.visibility= View.VISIBLE
+    }
+
+    private fun showRemoveMovieButton() = with(binding) {
+        removeMovieButton.visibility = View.VISIBLE
+        addMovieButton.visibility= View.INVISIBLE
     }
 
     override fun onDestroy() {

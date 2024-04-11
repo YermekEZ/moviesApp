@@ -21,6 +21,15 @@ class AddMovieUseCase @Inject constructor(
     }
 }
 
+
+class RemoveMovieUseCase @Inject constructor(
+    private val repository: MoviesLocalRepository
+) {
+    suspend fun removeMovieFromFavorites(movie: MovieModel) {
+        repository.removeMovieFromFavorites(movie.id)
+    }
+}
+
 class GetAllFavouriteMoviesUseCase @Inject constructor(
     private val repository: MoviesLocalRepository
 ) {
@@ -40,6 +49,14 @@ class GetAllFavouriteMoviesUseCase @Inject constructor(
             )
         }
         return favouriteMoviesList
+    }
+}
+
+class CheckIsMovieFavoriteUseCase @Inject constructor(
+    private val repository: MoviesLocalRepository
+) {
+    suspend fun isMovieFavorite(movie: MovieModel): Boolean {
+        return repository.isMovieFavorite(movie.id)
     }
 }
 
