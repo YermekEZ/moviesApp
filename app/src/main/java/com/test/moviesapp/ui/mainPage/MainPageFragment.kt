@@ -2,6 +2,7 @@ package com.test.moviesapp.ui.mainPage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,6 +50,7 @@ class MainPageFragment : Fragment() {
             intent.putExtra("description", movieData.description)
             intent.putExtra("rating", movieData.voteAverage)
             intent.putExtra("posterUrl", "https://image.tmdb.org/t/p/original${movieData.posterImage}")
+            Log.v("Test log", movieData.description)
             startActivity(intent)
         }
         recyclerView.adapter = adapter
