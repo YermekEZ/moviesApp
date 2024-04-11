@@ -62,7 +62,11 @@ class SearchFragment : Fragment() {
                 intent.putExtra("title", movie.title)
                 intent.putExtra("description", movie.description)
                 intent.putExtra("rating", movie.voteAverage)
-                intent.putExtra("posterUrl", "https://image.tmdb.org/t/p/original${movie.posterImage}")
+                if(movie.posterImage==null){
+                    intent.putExtra("posterUrl", "https://i.pinimg.com/564x/50/6f/3c/506f3c5fcb942c54fbe2f5f84b96d2c8.jpg")
+                } else{
+                    intent.putExtra("posterUrl", "https://image.tmdb.org/t/p/original${movie.posterImage}")
+                }
                 startActivity(intent)
             }
         }

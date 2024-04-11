@@ -50,6 +50,11 @@ class MainPageFragment : Fragment() {
             intent.putExtra("description", movieData.description)
             intent.putExtra("rating", movieData.voteAverage)
             intent.putExtra("posterUrl", "https://image.tmdb.org/t/p/original${movieData.posterImage}")
+            if(movieData.posterImage==null){
+                intent.putExtra("posterUrl", "https://i.pinimg.com/564x/50/6f/3c/506f3c5fcb942c54fbe2f5f84b96d2c8.jpg")
+            } else{
+                intent.putExtra("posterUrl", "https://image.tmdb.org/t/p/original${movieData.posterImage}")
+            }
             Log.v("Test log", movieData.description)
             startActivity(intent)
         }

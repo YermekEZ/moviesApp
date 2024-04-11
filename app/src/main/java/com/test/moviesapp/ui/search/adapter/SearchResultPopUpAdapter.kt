@@ -36,7 +36,11 @@ class SearchResultPopUpAdapter(
         }
 
         val item = result[position]
-        binding.posterImageView.load("https://image.tmdb.org/t/p/original${item.posterImage}")
+        if(item.posterImage==null){
+            binding.posterImageView.load("https://i.pinimg.com/564x/50/6f/3c/506f3c5fcb942c54fbe2f5f84b96d2c8.jpg")
+        } else{
+            binding.posterImageView.load("https://image.tmdb.org/t/p/original${item.posterImage}")
+        }
         binding.movieTitleTextView.text = item.title
         binding.ratingTextView.text = item.voteAverage.toString()
 

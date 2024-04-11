@@ -30,7 +30,11 @@ class FavouriteMoviesRecyclerViewAdapter(
     inner class ViewHolder(private val binding: LayoutMoviePosterItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieModel) = with(binding) {
-            moviePosterImageView.load("https://image.tmdb.org/t/p/original${movie.posterImage}")
+            if(movie.posterImage==null){
+                moviePosterImageView.load("https://i.pinimg.com/564x/50/6f/3c/506f3c5fcb942c54fbe2f5f84b96d2c8.jpg")
+            } else{
+                moviePosterImageView.load("https://image.tmdb.org/t/p/original${movie.posterImage}")
+            }
             movieTitleTextView.text = movie.title
             movieRatingTextView.text = movie.voteAverage.toString()
             binding.root.setOnClickListener {
