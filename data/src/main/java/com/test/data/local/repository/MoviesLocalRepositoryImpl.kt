@@ -13,8 +13,17 @@ class MoviesLocalRepositoryImpl @Inject constructor(
         return dao.addMovie(movie)
     }
 
+    override suspend fun removeMovieFromFavorites(movieID: Int) {
+        return dao.removeMovie(movieID)
+    }
+
     override suspend fun getAllFavouriteMovies(): List<FavouriteMovieEntity> {
         return dao.getAllFavouriteMovies()
+    }
+
+    override suspend fun isMovieFavorite(movieID: Int): Boolean {
+        val favoriteMovie: FavouriteMovieEntity? = dao.getFavouriteMovieByID(movieID)
+        return favoriteMovie != null
     }
 
     override suspend fun addRecentlySearchedMovie(movie: RecentlySearchedMovieEntity) {

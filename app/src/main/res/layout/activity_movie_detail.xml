@@ -57,23 +57,42 @@
                 android:layout_below="@id/titleContainer"
                 android:layout_marginHorizontal="16dp" />
 
-            <Button
-                android:id="@+id/addMovieButton"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/buttonsContainer"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/detailsTextView"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Add movie to Favorites" />
+                android:layout_below="@id/detailsTextView">
+
+                <Button
+                    android:id="@+id/addMovieButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/add_movie_to_favorites"
+                    android:visibility="visible"/>
+
+                <Button
+                    android:id="@+id/removeMovieButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/added_to_favorites"
+                    android:backgroundTint="@color/customGreen"
+                    android:visibility="invisible"/>
+
+            </FrameLayout>
+
 
             <TextView
                 android:id="@+id/trailerTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/addMovieButton"
+                android:layout_below="@id/buttonsContainer"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:text="Trailer" />
+                android:text="@string/trailer" />
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtubePlayer"
