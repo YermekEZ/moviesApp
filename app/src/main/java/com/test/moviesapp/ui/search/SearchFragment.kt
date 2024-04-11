@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import com.test.domain.useCases.model.MovieModel
 import com.test.moviesapp.databinding.FragmentSearchBinding
 import com.test.moviesapp.ui.movieDetails.MovieDetailActivity
+import com.test.moviesapp.ui.search.adapter.EmptyStateAdapter
 import com.test.moviesapp.ui.search.adapter.RecentlySearchedMoviesRecyclerViewAdapter
 import com.test.moviesapp.ui.search.adapter.SearchResultPopUpAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +43,6 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
-        setupRecyclerView()
         observeViewModel()
         viewModel.getRecentlySearchedMovies()
     }
@@ -67,37 +67,42 @@ class SearchFragment : Fragment() {
             }
         }
         searchEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().length >= 3) {
                     viewModel.searchMovies(p0.toString())
                 }
             }
-
         })
     }
 
-    private fun setupRecyclerView() = with(binding) {
-
-    }
-
     private fun observeViewModel() = with(viewModel) {
-        moviesListFromSearch.observe(viewLifecycleOwner) {
-            popUpWindowAdapter = SearchResultPopUpAdapter(requireContext(), it)
-            popUpWindow.setAdapter(popUpWindowAdapter)
-            popUpWindow.show()
+        moviesListFromSearch.observe(viewLifecycleOwner) { movies ->
+            if (movies.isEmpty()) {
+                popUpWindow.height = 45 * resources.displayMetrics.density.toInt()
+                val emptyStateAdapter = EmptyStateAdapter(requireContext(), "Nothing found")
+                popUpWindow.setAdapter(emptyStateAdapter)
+                popUpWindow.show()
+            } else {
+                popUpWindowAdapter = SearchResultPopUpAdapter(requireContext(), movies)
+                popUpWindow.setAdapter(popUpWindowAdapter)
+                popUpWindow.show()
+            }
         }
-        recentlySearchedMovies.observe(viewLifecycleOwner) {
-            with(binding) {
-                Log.d("TESTCASE", it.firstOrNull().toString())
-                val adapter = RecentlySearchedMoviesRecyclerViewAdapter(it) { movie ->
+        recentlySearchedMovies.observe(viewLifecycleOwner) { recentlySearchedMovies ->
+            if (recentlySearchedMovies.isEmpty()) {
+                binding.emptyRecentStateImageView.visibility = View.VISIBLE
+                binding.emptyRecentStateTextView.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.GONE
+            } else {
+                binding.emptyRecentStateTextView.visibility = View.GONE
+                binding.emptyRecentStateImageView.visibility = View.GONE
+                binding.recyclerView.visibility = View.VISIBLE
+
+                val adapter = RecentlySearchedMoviesRecyclerViewAdapter(recentlySearchedMovies) { movie ->
                     val intent = Intent(requireContext(), MovieDetailActivity::class.java)
                     intent.putExtra("id", movie.id)
                     intent.putExtra("title", movie.title)
@@ -109,7 +114,7 @@ class SearchFragment : Fragment() {
                     )
                     startActivity(intent)
                 }
-                recyclerView.adapter = adapter
+                binding.recyclerView.adapter = adapter
             }
         }
     }
