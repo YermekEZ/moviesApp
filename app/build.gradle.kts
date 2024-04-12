@@ -68,7 +68,7 @@ dependencies {
     // hilt
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-compiler:2.50")
-    annotationProcessor("androidx.hilt:hilt-compiler:1.1.0")
+    annotationProcessor("androidx.hilt:hilt-compiler:1.2.0")
     // coil
     implementation("io.coil-kt:coil:2.5.0")
     // room
@@ -79,6 +79,8 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:3.1.0-beta01")
     // youtube player
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
+    // workManager
+    implementation("androidx.work:work-runtime:2.9.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

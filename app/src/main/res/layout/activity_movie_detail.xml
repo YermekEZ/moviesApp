@@ -66,11 +66,30 @@
                 android:layout_marginTop="16dp"
                 android:text="Add movie to Favorites" />
 
+            <Button
+                android:id="@+id/startServiceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addMovieButton"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Start service" />
+
+            <Button
+                android:id="@+id/stopServiceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addMovieButton"
+                android:layout_toEndOf="@id/startServiceButton"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Stop service" />
+
             <TextView
                 android:id="@+id/trailerTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/addMovieButton"
+                android:layout_below="@id/startServiceButton"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:text="Trailer" />
